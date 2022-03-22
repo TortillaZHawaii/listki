@@ -1,6 +1,7 @@
 import numpy as np
 import csv
 import shutil
+from PIL import Image
 
 
 def read_data():
@@ -12,7 +13,9 @@ def read_data():
     for e in data:
         for v in e[1].split():
             try:
-                shutil.copy("train_images/" + e[0], "sorted_images/" + v+"/")
+                image = Image.open("train_images/" + e[0])
+                new_image = image.resize((400, 400))
+                new_image.save("sorted_images/" + v+"/" + e[0])
             except(FileNotFoundError):
                 pass
 
